@@ -12,6 +12,22 @@ class HashMap{
         this.#capacity = 0;
         this.#buckets = new Array(this.#size).fill(null);
     }
+
+    hash(key){
+        let hashCode = 0;
+
+        const prime = 31;
+        for (let i=0; i<key.length; i++){
+            hashCode = prime * hashCode + key.charCodeAt(i);
+        }
+        return hashCode;
+    }
 }
 
 let hashMap = new HashMap();
+
+key_test = ['Milo','Cody','Fufi','Lucky','Cuki','Oliver','Fiocchetta','Oliver (the first)'];
+for (let key of key_test){
+    let hashCode = hashMap.hash(key);
+    console.log(`\nThe hashcode of key '${key}' is ${hashCode}`);
+}
