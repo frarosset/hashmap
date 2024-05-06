@@ -1,6 +1,6 @@
 // in this first implementation, buckets are simple values, and not linked list yet: todo with linked lists!
 
-class HashMap{
+export default class HashMap{
     #initial_size = 16;   // inital size of buckets array
     #load_factor  = 0.75; // when capacity/size is larger, double the size of the buckets array
     #size;                // size of buckets array
@@ -42,12 +42,4 @@ class HashMap{
         return Math.floor(this.#size * ((hashCode * this.#c) % 1));
     }
 
-}
-
-let hashMap = new HashMap();
-
-key_test = ['Milo','Cody','Fufi','Lucky','Cuki','Oliver','Fiocchetta','Oliver (the first)'];
-for (let key of key_test){
-    let hashCode = hashMap.hash(key);
-    console.log(`\nThe hashcode of key '${key}' is ${hashCode}`);
 }
