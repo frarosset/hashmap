@@ -8,7 +8,9 @@ for (let i=0; i<key_test.length; i++){
     let key = key_test[i];
     let value = value_test[i];
     let hashCode = hashMap.hash(key);
-    console.log(`\nSetting value '${value}' in key '${key}'`)
+    let length = hashMap.length(key);
+    console.log(`\nThe current length of the hashMap is ${length}`)
+    console.log(`Setting value '${value}' in key '${key}'`);
     console.log(`The hashcode of key '${key}' is ${hashCode}`);
     hashMap.set(key,value);
     console.log(hashMap.toString());

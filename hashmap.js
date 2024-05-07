@@ -1,19 +1,19 @@
 import LinkedList from "./LinkedList.js"
 
 export default class HashMap{
-    #initial_size = 16;   // inital size of buckets array
+    #initial_capacity = 16;   // inital size of buckets array
     #load_factor  = 0.75; // when capacity/size is larger, double the size of the buckets array
-    #size;                // size of buckets array
-    #capacity;            // number of items in the hash table
+    #capacity;            // size of buckets array
+    #length;              // number of items (keys) in the hash table
     #buckets;             // array with buckets
 
     #c = (Math.sqrt(5)-1)/2; // precomputed constant to be used by #hashByMultiplication() method
 
     constructor(){
-        this.#size = this.#initial_size;
-        this.#capacity = 0;
-        this.#buckets = new Array(this.#size);
-        for (let i=0; i<this.#size; i++){
+        this.#capacity = this.#initial_capacity;
+        this.#length = 0;
+        this.#buckets = new Array(this.#capacity);
+        for (let i=0; i<this.#capacity; i++){
             this.#buckets[i] = new LinkedList();
         }
     }
@@ -40,10 +40,10 @@ export default class HashMap{
     // The size can be any number using #hashByMultiplication
     // see https://www.geeksforgeeks.org/what-are-hash-functions-and-how-to-choose-a-good-hash-function/
     #hashByDivision(hashCode){
-        return hashCode % this.#size;
+        return hashCode % this.#capacity;
     }
     #hashByMultiplication(hashCode){
-        return Math.floor(this.#size * ((hashCode * this.#c) % 1));
+        return Math.floor(this.#capacity * ((hashCode * this.#c) % 1));
     }
 
     // This method takes two arguments, the first is a key and the second is a value 
@@ -62,6 +62,7 @@ export default class HashMap{
             bucket.at(idx).value = value;
         } else {
             bucket.append(key, value);
+            this.#length++;
         }
     }
 
@@ -84,15 +85,19 @@ export default class HashMap{
     has(key){
         let hashCode = this.hash(key);
         let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
-        
         let idx = bucket.find(key);
 
         return idx !== null;
     }
 
+    // This method returns the number of stored keys in the hash map
+    length(){
+        return this.#length;
+    }
+
     toString(){
         let str = '';
-        for (let i=0; i<this.#size; i++){
+        for (let i=0; i<this.#capacity; i++){
             let bucket = this.#buckets[i];
             if (bucket){
                 str += `[${i}] ${bucket.toString()}\n`;
