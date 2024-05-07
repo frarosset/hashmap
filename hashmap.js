@@ -1,6 +1,4 @@
-// in this first implementation, buckets are simple values, and not linked list yet: todo with linked lists!
-
-import Node from "./Node.js"
+import LinkedList from "./LinkedList.js"
 
 export default class HashMap{
     #initial_size = 16;   // inital size of buckets array
@@ -14,7 +12,10 @@ export default class HashMap{
     constructor(){
         this.#size = this.#initial_size;
         this.#capacity = 0;
-        this.#buckets = new Array(this.#size).fill(null);
+        this.#buckets = new Array(this.#size);
+        for (let i=0; i<this.#size; i++){
+            this.#buckets[i] = new LinkedList();
+        }
     }
 
     hash(key){
@@ -45,12 +46,17 @@ export default class HashMap{
     }
 
     set(key, value){
-        // todo #0: overwrite just the value if same key (instead of the whole node)
-        // todo #1: handle collisions
         // todo #2: grow buckets when needed
 
         let hashCode = this.hash(key);
-        this.#buckets[hashCode] = new Node(key,value); // temporary - todo: the bucked is a linked list (for todo #1)
+        let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
+        
+        let idx = bucket.find(key);
+        if (idx !== null){
+            bucket.at(idx).value = value;
+        } else {
+            bucket.append(key, value);
+        }
     }
 
     toString(){
@@ -58,7 +64,7 @@ export default class HashMap{
         for (let i=0; i<this.#size; i++){
             let bucket = this.#buckets[i];
             if (bucket){
-                str += `[${i}] ${bucket.toString()}\n`; // todo: print linked list (see todo #1)
+                str += `[${i}] ${bucket.toString()}\n`;
             }
         }
         return str;

@@ -2,8 +2,8 @@ import HashMap from './HashMap.js'
 
 let hashMap = new HashMap();
 
-let key_test = ['Milo','Cody','Fufi','Lucky','Cuki','Oliver','Fiocchetta','Oliver (the first)','Lucky'];
-let value_test = ['cat','dog','cat','dog','cat','cat','cat','cat','again a dog'];
+let key_test = ['Milo','Cody','Fufi','Lucky','Cuki','Oliver','Fiocchetta','Oliver (the first)','Lucky','Milo'];
+let value_test = ['cat','dog','cat','dog','cat','cat','cat','cat','again a dog','again a cat'];
 for (let i=0; i<key_test.length; i++){
     let key = key_test[i];
     let value = value_test[i];
