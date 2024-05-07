@@ -24,3 +24,14 @@ for (let i=0; i<getKey_test.length; i++){
     let hasKey = hashMap.has(key);
     console.log(`The value in key '${key}' is '${storedValue}' (the key ${hasKey ? 'is' : 'is NOT'} present)`);
 }
+
+console.log('\n\nClearing the hashMap');
+hashMap.clear();
+console.log(hashMap.toString());
+console.log('\n\nRe-filling the hashMap');
+for (let i=0; i<key_test.length; i++){
+    let key = key_test[i];
+    let value = value_test[i];
+    hashMap.set(key,value);
+}
+console.log(hashMap.toString());

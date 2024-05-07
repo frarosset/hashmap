@@ -11,11 +11,15 @@ export default class HashMap{
 
     constructor(){
         this.#capacity = this.#initial_capacity;
-        this.#length = 0;
         this.#buckets = new Array(this.#capacity);
+        this.#resetBuckets();
+    }
+
+    #resetBuckets(){
+        this.#length = 0;
         for (let i=0; i<this.#capacity; i++){
             this.#buckets[i] = new LinkedList();
-        }
+        } 
     }
 
     // This method takes a key and produces a hash code with it
@@ -93,6 +97,11 @@ export default class HashMap{
     // This method returns the number of stored keys in the hash map
     length(){
         return this.#length;
+    }
+
+    // This method removes all entries in the hash map
+    clear(){
+        this.#resetBuckets();
     }
 
     toString(){
