@@ -2,7 +2,8 @@ import LinkedList from "./LinkedList.js"
 
 export default class HashMap{
     #initial_capacity = 16;   // inital size of buckets array
-    #load_factor  = 0.75; // when capacity/size is larger, double the size of the buckets array
+    #loadFactor  = 0.75; // when capacity/size is larger, double the size of the buckets array
+    #maxLength;
     #capacity;            // size of buckets array
     #length;              // number of items (keys) in the hash table
     #buckets;             // array with buckets
@@ -11,8 +12,13 @@ export default class HashMap{
 
     constructor(){
         this.#capacity = this.#initial_capacity;
+        this.#computeMaxLength();
         this.#buckets = new Array(this.#capacity);
         this.#resetBuckets();
+    }
+
+    #computeMaxLength(){
+        this.#maxLength = Math.floor(this.#capacity * this.#loadFactor);
     }
 
     #resetBuckets(){
@@ -56,18 +62,40 @@ export default class HashMap{
     // If there is a collision (when TWO DIFFERENT keys sit inside the same bucket),
     // a new key/value node is appended to the bucked, using a LinkedList
     set(key, value){
-        // todo #2: grow buckets when needed
-
         let hashCode = this.hash(key);
         let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
         
         let idx = bucket.find(key);
         if (idx !== null){
+            // just update the stored value (no new entry)
             bucket.at(idx).value = value;
         } else {
             bucket.append(key, value);
             this.#length++;
+
+            if (this.#loadFactorViolation()){
+                console.log(`>>> Load factor reached (${this.#length} out of ${this.#maxLength}=${this.#capacity}*${this.#loadFactor})\n    Redistributing buckets after doubling capacity!`);
+                this.#doubleCapacity();
+            }
         }
+    }
+
+    #doubleCapacity(){
+        this.#capacity *= 2;
+        this.#computeMaxLength();
+        // Get the current entries before actually doubling the #buckets array
+        let entries = this.entries();
+        // Reset the buckets array
+        this.#buckets = new Array(this.#capacity);
+        this.#resetBuckets();
+        // Refill the values
+        entries.forEach(entry => {
+            this.set(entry[0],entry[1]);
+        });
+    }
+
+    #loadFactorViolation(){
+        return this.#length > this.#maxLength;
     }
 
     // This method takes one argument as a key and returns the value that is assigned 
