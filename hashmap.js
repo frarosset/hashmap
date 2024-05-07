@@ -94,6 +94,23 @@ export default class HashMap{
         return idx !== null;
     }
 
+    // This method takes a key as an argument. If the given key is in the hash map, it
+    // remove the entry with that key and return true. If the key isn’t in the hash map, 
+    // it return false.
+    remove(key){
+        let hashCode = this.hash(key);
+        let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
+        
+        let idx = bucket.find(key);
+        if (idx !== null){
+            bucket.removeAt(idx);
+            this.#length--;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // This method returns the number of stored keys in the hash map
     length(){
         return this.#length;
