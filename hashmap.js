@@ -1,5 +1,7 @@
 // in this first implementation, buckets are simple values, and not linked list yet: todo with linked lists!
 
+import Node from "./Node.js"
+
 export default class HashMap{
     #initial_size = 16;   // inital size of buckets array
     #load_factor  = 0.75; // when capacity/size is larger, double the size of the buckets array
@@ -42,4 +44,23 @@ export default class HashMap{
         return Math.floor(this.#size * ((hashCode * this.#c) % 1));
     }
 
+    set(key, value){
+        // todo #0: overwrite just the value if same key (instead of the whole node)
+        // todo #1: handle collisions
+        // todo #2: grow buckets when needed
+
+        let hashCode = this.hash(key);
+        this.#buckets[hashCode] = new Node(key,value); // temporary - todo: the bucked is a linked list (for todo #1)
+    }
+
+    toString(){
+        let str = '';
+        for (let i=0; i<this.#size; i++){
+            let bucket = this.#buckets[i];
+            if (bucket){
+                str += `[${i}] ${bucket.toString()}\n`; // todo: print linked list (see todo #1)
+            }
+        }
+        return str;
+    }
 }
