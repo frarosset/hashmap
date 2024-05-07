@@ -227,4 +227,15 @@ export default class LinkedList{
         }
         return keys;
     }
+
+    get values(){
+        let thisNode = this.#head;
+        let values = [];
+        
+        while (thisNode != null){
+            values.push(thisNode.value);
+            thisNode = thisNode.next;
+        }
+        return values;
+    }
 }

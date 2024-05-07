@@ -115,6 +115,17 @@ export default class HashMap{
         return keys;
     }
 
+    // This method returns an array containing all the values inside the hash map
+    values(){
+        let values = [];
+        
+        for (let bucket of this.#buckets){
+            values.push(...bucket.values);
+        }
+
+        return values;
+    }
+
     toString(){
         let str = '';
         for (let i=0; i<this.#capacity; i++){
