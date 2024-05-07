@@ -1,4 +1,4 @@
-import LinkedList from "./LinkedList.js"
+import LinkedList from "./LinkedListForHashMap.js"
 
 export default class HashMap{
     #initial_capacity = 16;   // inital size of buckets array
