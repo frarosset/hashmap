@@ -19,5 +19,6 @@ console.log('\n\nTEST .get() method');
 for (let i=0; i<getKey_test.length; i++){
     let key = getKey_test[i];
     let storedValue = hashMap.get(key);
-    console.log(`The value in key '${key}' is '${storedValue}'`);
+    let hasKey = hashMap.has(key);
+    console.log(`The value in key '${key}' is '${storedValue}' (the key ${hasKey ? 'is' : 'is NOT'} present)`);
 }

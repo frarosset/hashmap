@@ -18,6 +18,7 @@ export default class HashMap{
         }
     }
 
+    // This method takes a key and produces a hash code with it
     hash(key){
         let hashCode = 0;
 
@@ -45,6 +46,11 @@ export default class HashMap{
         return Math.floor(this.#size * ((hashCode * this.#c) % 1));
     }
 
+    // This method takes two arguments, the first is a key and the second is a value 
+    // that is assigned to this key. 
+    // If a key already exists, then the old value is overwritten.
+    // If there is a collision (when TWO DIFFERENT keys sit inside the same bucket),
+    // a new key/value node is appended to the bucked, using a LinkedList
     set(key, value){
         // todo #2: grow buckets when needed
 
@@ -59,7 +65,8 @@ export default class HashMap{
         }
     }
 
-
+    // This method takes one argument as a key and returns the value that is assigned 
+    // to this key. If a key is not found, return null.
     get(key){
         let hashCode = this.hash(key);
         let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
@@ -70,6 +77,17 @@ export default class HashMap{
         } else {
             return null;
         }
+    }
+
+    // This method takes a key as an argument and returns true or false based on whether 
+    // or not the key is in the hash map.
+    has(key){
+        let hashCode = this.hash(key);
+        let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
+        
+        let idx = bucket.find(key);
+
+        return idx !== null;
     }
 
     toString(){
