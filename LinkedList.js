@@ -238,4 +238,15 @@ export default class LinkedList{
         }
         return values;
     }
+
+    get entries(){
+        let thisNode = this.#head;
+        let entries = [];
+        
+        while (thisNode != null){
+            entries.push([thisNode.key,thisNode.value]);
+            thisNode = thisNode.next;
+        }
+        return entries;
+    }
 }

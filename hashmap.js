@@ -126,6 +126,19 @@ export default class HashMap{
         return values;
     }
 
+
+    // This method returns an array that contains each key, value pair.
+    // Example: [[firstKey, firstValue], [secondKey, secondValue]]
+    entries(){
+        let entries = [];
+        
+        for (let bucket of this.#buckets){
+            entries.push(...bucket.entries);
+        }
+
+        return entries;
+    }
+
     toString(){
         let str = '';
         for (let i=0; i<this.#capacity; i++){

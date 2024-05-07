@@ -38,3 +38,4 @@ console.log(hashMap.toString());
 
 console.log('Keys: ', hashMap.keys());
 console.log('Values: ', hashMap.values());
+console.log('Entries: ', hashMap.entries());
