@@ -13,3 +13,11 @@ for (let i=0; i<key_test.length; i++){
     hashMap.set(key,value);
     console.log(hashMap.toString());
 }
+
+let getKey_test = [...key_test, 'Argo', 'Citiri', 'Fufetta'];
+console.log('\n\nTEST .get() method');
+for (let i=0; i<getKey_test.length; i++){
+    let key = getKey_test[i];
+    let storedValue = hashMap.get(key);
+    console.log(`The value in key '${key}' is '${storedValue}'`);
+}

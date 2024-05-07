@@ -59,6 +59,19 @@ export default class HashMap{
         }
     }
 
+
+    get(key){
+        let hashCode = this.hash(key);
+        let bucket = this.#buckets[hashCode]; // reference to the bucket linked list
+        
+        let idx = bucket.find(key);
+        if (idx !== null){
+            return bucket.at(idx).value;
+        } else {
+            return null;
+        }
+    }
+
     toString(){
         let str = '';
         for (let i=0; i<this.#size; i++){
