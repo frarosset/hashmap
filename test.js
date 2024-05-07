@@ -35,3 +35,5 @@ for (let i=0; i<key_test.length; i++){
     hashMap.set(key,value);
 }
 console.log(hashMap.toString());
+
+console.log('Keys: ', hashMap.keys());

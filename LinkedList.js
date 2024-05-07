@@ -216,4 +216,15 @@ export default class LinkedList{
         nodeAtIndex.next = nodeAtIndex.next.next;
         this.#size--;
     }
+
+    get keys(){
+        let thisNode = this.#head;
+        let keys = [];
+        
+        while (thisNode != null){
+            keys.push(thisNode.key);
+            thisNode = thisNode.next;
+        }
+        return keys;
+    }
 }

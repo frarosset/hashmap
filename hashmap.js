@@ -104,6 +104,17 @@ export default class HashMap{
         this.#resetBuckets();
     }
 
+    // This method returns an array containing all the keys inside the hash map
+    keys(){
+        let keys = [];
+        
+        for (let bucket of this.#buckets){
+            keys.push(...bucket.keys);
+        }
+
+        return keys;
+    }
+
     toString(){
         let str = '';
         for (let i=0; i<this.#capacity; i++){
